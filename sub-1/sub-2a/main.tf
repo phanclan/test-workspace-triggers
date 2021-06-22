@@ -11,7 +11,7 @@ variable "pet_name_length" {
 }
 
 variable "prefix" {
-  default = "test-2a"
+  default = "test"
 }
 
 # output.tf
