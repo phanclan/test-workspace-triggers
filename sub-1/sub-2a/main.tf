@@ -7,7 +7,7 @@ resource "random_pet" "server" {
 
 variable "pet_name_length" {
   type    = string
-  default = "1"
+  default = "2"
 }
 
 variable "prefix" {
