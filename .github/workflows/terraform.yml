@@ -28,6 +28,7 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
+
       # Initialize Terraform working directory - create initial files, load any remote state, download modules, etc.
       - name: Terraform Init
         id: init
