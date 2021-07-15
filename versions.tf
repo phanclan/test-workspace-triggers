@@ -6,7 +6,6 @@ terraform {
   }
   backend "remote" {
     organization = "pphan"
-
     workspaces {
       name = "test-workspace-triggers"
     }
