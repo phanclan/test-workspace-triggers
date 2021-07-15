@@ -11,7 +11,6 @@ terraform {
     }
   }
 }
-
 output "workspace" {
   value = "test-workspace-triggers"
 }
