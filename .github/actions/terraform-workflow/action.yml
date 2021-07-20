@@ -21,7 +21,7 @@ runs:
     - id: random-number-generator
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
       shell: bash
-    - run: ${{ github.action_path }}/goodbye.sh
+    - run: echo ${{ github.action_path }}; ${{ github.action_path }}/goodbye.sh
       shell: bash
     - name: Terraform Format
       id: fmt
