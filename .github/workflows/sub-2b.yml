@@ -1,12 +1,20 @@
 on:
   push:
+    branches:
+      - main
     paths:
       - 'test-workspace-triggers/sub-1/sub-2b/*'
+  pull_request:
+      - 'test-workspace-triggers/sub-1/sub-2b/*'
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Terraform Plan Apply
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -15,18 +23,18 @@ jobs:
         with:
           terraform_version: 0.14.0
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      - id: foo
+      - name: Terraform Format Init Validate
+        id: foo
         uses: ./.github/actions/terraform-workflow # actions/hello-world-composite-run-steps-action@v1
+#        uses: actions/hello-world-composite-run-steps-action@v1
         with:
           working-directory: 'test-workspace-triggers/sub-1/sub-2b'
-          who-to-greet: 'Mona the Octocat'
+          who-to-greet: 'Mona the Octocats'
       - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
-        shell: bash
         working-directory: 'test-workspace-triggers/sub-1/sub-2b'
         continue-on-error: true
       - uses: actions/github-script@0.9.0
@@ -61,6 +69,6 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
         working-directory: 'test-workspace-triggers/sub-1/sub-2b'
