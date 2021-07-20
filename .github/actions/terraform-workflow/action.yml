@@ -28,7 +28,7 @@ runs:
       shell: bash
     - name: Terraform Format
       id: fmt
-      run: terraform fmt -check
+      run: echo terraform fmt -check
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: Terraform Init
