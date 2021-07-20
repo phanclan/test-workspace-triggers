@@ -1,5 +1,5 @@
-name: 'terraform-plan-approve-apply' # 'Hello World'
-description: 'Greet someone'
+name: 'terraform-plan-approve-apply'
+description: 'Common workflow for Terraform'
 inputs:
   working-directory:
     description: 'Working directory for this action'
@@ -7,7 +7,7 @@ inputs:
     default: '.'
   who-to-greet:  # ID of input
     description: 'Who to greet'
-    required: true
+    required: false
     default: 'World'
 outputs:
   random-number:
@@ -26,3 +26,19 @@ runs:
     - name: Goodbye Script
       run: ${{ github.action_path }}/goodbye.sh
       shell: bash
+
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: Terraform Init
+      id: init
+      run: terraform init -input=false
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
