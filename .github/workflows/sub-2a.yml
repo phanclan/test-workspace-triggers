@@ -1,7 +1,10 @@
 on:
   push:
+    branches:
+      - main
     paths:
       - 'test-workspace-triggers/sub-1/sub-2a/*'
+  pull_request:
 
 jobs:
   hello_world_job:
