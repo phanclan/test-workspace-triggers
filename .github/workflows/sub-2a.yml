@@ -5,6 +5,7 @@ on:
     paths:
       - 'sub-1/sub-2a/*'
   pull_request:
+    paths:
       - 'sub-1/sub-2a/*'
 
 defaults:

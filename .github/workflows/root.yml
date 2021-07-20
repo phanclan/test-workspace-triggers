@@ -5,6 +5,7 @@ on:
     paths:
       - '*'
   pull_request:
+    paths:
       - '*'
 
 defaults:
