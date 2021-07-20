@@ -18,7 +18,8 @@ jobs:
         with:
           terraform_version: 0.14.0
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      - id: foo
+      - name: Terraform Format Init Validate
+        id: foo
         uses: ./.github/actions/terraform-workflow # actions/hello-world-composite-run-steps-action@v1
         with:
           working-directory: 'test-workspace-triggers'
