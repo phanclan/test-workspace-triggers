@@ -5,6 +5,11 @@ on:
     paths:
       - 'test-workspace-triggers/sub-1/sub-2a/*'
   pull_request:
+      - 'test-workspace-triggers/sub-1/sub-2a/*'
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   hello_world_job:
@@ -21,16 +26,15 @@ jobs:
       - name: Terraform Format Init Validate
         id: foo
         uses: ./.github/actions/terraform-workflow # actions/hello-world-composite-run-steps-action@v1
+#        uses: actions/hello-world-composite-run-steps-action@v1
         with:
           working-directory: 'test-workspace-triggers/sub-1/sub-2a'
-          who-to-greet: 'Mona the Octocat'
+          who-to-greet: 'Mona the Octocats'
       - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
-        shell: bash
         working-directory: 'test-workspace-triggers/sub-1/sub-2a'
         continue-on-error: true
       - uses: actions/github-script@0.9.0
