@@ -13,5 +13,5 @@ terraform {
   }
 }
 output "workspace" {
-  value = "sub-1 2021071917"
+  value = "sub-1 202107191712"
 }
