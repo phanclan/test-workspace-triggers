@@ -16,12 +16,15 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}. ${{ inputs.working-directory }}
+    - name: Hello
+      run: echo Hello ${{ inputs.who-to-greet }}. ${{ inputs.working-directory }}
       shell: bash
-    - id: random-number-generator
+    - name: Random Number Generator
+      id: random-number-generator
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
       shell: bash
-    - run: echo ${{ github.action_path }}; ${{ github.action_path }}/goodbye.sh
+    - name: Goodbye Script
+      run: ${{ github.action_path }}/goodbye.sh
       shell: bash
     - name: Terraform Format
       id: fmt
