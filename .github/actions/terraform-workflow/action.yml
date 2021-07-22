@@ -51,9 +51,9 @@ runs:
       id: validate
       run: |
         if terraform validate -no-color; then
-        terraform version
+        echo "::set-output name=test::success"
         else
-        echo else
+        echo "::set-output name=test::fail"
         fi
       shell: bash
       working-directory: ${{ inputs.working-directory }}
