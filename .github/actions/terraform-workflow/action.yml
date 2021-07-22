@@ -5,18 +5,11 @@ inputs:
     description: 'Working directory for this action'
     required: false
     default: '.'
-  who-to-greet:  # ID of input
-    description: 'Who to greet'
-    required: false
-    default: 'World'
 outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
   fmt:
     description: "Status of terraform format"
     value: ${{ steps.fmt.outputs.test }}
-  tf_init:
+  init:
     description: "Status of terraform init"
     value: ${{ steps.init.outputs.test }}
   validate:
@@ -26,13 +19,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Hello
-      run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-    - name: Random Number Generator
-      id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
     - name: Goodbye Script
       run: ${{ github.action_path }}/goodbye.sh
       shell: bash
