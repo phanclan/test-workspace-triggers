@@ -5,7 +5,7 @@ inputs:
     description: 'Working directory for this action'
     required: false
     default: '.'
-  fmt:  # ID of input
+  who-to-greet:  # ID of input
     description: 'Who to greet'
     required: false
     default: 'World'
@@ -21,7 +21,7 @@ runs:
   using: "composite"
   steps:
     - name: Hello
-      run: echo Hello ${{ inputs.who-to-greet }}. ${{ inputs.working-directory }}
+      run: echo Hello ${{ inputs.who-to-greet }}.
       shell: bash
     - name: Random Number Generator
       id: random-number-generator
