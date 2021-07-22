@@ -26,18 +26,16 @@ jobs:
       - name: Terraform Format Init Validate Composite Action
         id: foo
         uses: ./.github/actions/terraform-workflow
-#        uses: actions/hello-world-composite-run-steps-action@v1
         with:
           working-directory: 'sub-1/sub-2a'
-          who-to-greet: 'Mona the Octocats'
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
         working-directory: 'sub-1/sub-2a'
         continue-on-error: true
-      - uses: actions/github-script@0.9.0
+      - name: Update Pull Request
+        uses: actions/github-script@0.9.0
         if: github.event_name == 'pull_request'
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
