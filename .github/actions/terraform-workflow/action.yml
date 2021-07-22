@@ -16,6 +16,10 @@ outputs:
   fmt:
     description: "Status of terraform format"
     value: ${{ steps.random-number-generator.outputs.random-id }} ${{ steps.fmt1.outcome }}
+  tf_init:
+    description: "Status of terraform init"
+    value: ${{ steps.init.outcome }}
+
 
 runs:
   using: "composite"
