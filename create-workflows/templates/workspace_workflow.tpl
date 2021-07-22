@@ -31,7 +31,7 @@ jobs:
         with:
           working-directory: '${working_directory}'
           who-to-greet: 'Mona the Octocats'
-      - run: echo random-number $${{ steps.foo.outputs.random-number }}
+      - run: echo random-number $${{ steps.foo.outputs.fmt }} $${{ steps.foo.outputs.random-number }}
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
