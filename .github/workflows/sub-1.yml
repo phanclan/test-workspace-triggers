@@ -27,7 +27,7 @@ jobs:
 
       - name: Terraform Format Init Validate Composite Action
         id: foo
-        uses: ./.github/actions/terraform-workflow@v1 # actions/hello-world-composite-run-steps-action@v1
+        uses: ./.github/actions/terraform-workflow # actions/hello-world-composite-run-steps-action@v1
 #        uses: actions/hello-world-composite-run-steps-action@v1
         with:
           working-directory: 'sub-1'
