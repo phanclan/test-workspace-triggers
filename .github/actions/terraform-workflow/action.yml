@@ -36,7 +36,7 @@ runs:
 
     - name: Terraform Format
       id: fmt1
-      run: terraform fmt -check && echo "::set-output name=test::hello"
+      run: if terraform fmt -check; then echo "::set-output name=test::success"; else echo "::set-output name=test::success"; fi
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: Terraform Init
