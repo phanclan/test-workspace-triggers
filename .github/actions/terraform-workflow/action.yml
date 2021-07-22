@@ -15,7 +15,10 @@ outputs:
     value: ${{ steps.random-number-generator.outputs.random-id }}
   fmt:
     description: "Status of terraform format"
-    value: ${{ steps.fmt.outcome }}
+    value: ${{ steps.random-number-generator.outputs.random-id }} ${{ steps.fmt1.outputs.test }}
+  tf_init:
+    description: "Status of terraform init"
+    value: ${{ steps.init.outcome }}
 
 runs:
   using: "composite"
@@ -32,8 +35,8 @@ runs:
       shell: bash
 
     - name: Terraform Format
-      id: fmt
-      run: terraform fmt -check
+      id: fmt1
+      run: terraform fmt -check && echo "::set-output name=test::hello"
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: Terraform Init

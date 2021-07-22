@@ -24,14 +24,15 @@ jobs:
         with:
           terraform_version: 0.14.0
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      - name: Terraform Format Init Validate
+
+      - name: Terraform Format Init Validate Composite Action
         id: foo
-        uses: ./.github/actions/terraform-workflow # actions/hello-world-composite-run-steps-action@v1
+        uses: ./.github/actions/terraform-workflow@v1 # actions/hello-world-composite-run-steps-action@v1
 #        uses: actions/hello-world-composite-run-steps-action@v1
         with:
           working-directory: 'sub-1/sub-2a'
           who-to-greet: 'Mona the Octocats'
-      - run: echo random-number ${{ steps.foo.outputs.fmt }} ${{ steps.foo.outputs.random-number }}
+      - run: echo random-number ${{ steps.foo.outputs.fmt }} ${{ steps.foo.outputs.tf_init }} ${{ steps.foo.outputs.random-number }}
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
@@ -46,7 +47,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const output = `#### Terraform Format and Style 🖌\`${{ steps.foo.outputs.fmt }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.foo.outputs.tf_init }}\`
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
