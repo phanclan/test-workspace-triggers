@@ -15,10 +15,10 @@ outputs:
     value: ${{ steps.random-number-generator.outputs.random-id }}
   fmt:
     description: "Status of terraform format"
-    value: ${{ steps.random-number-generator.outputs.random-id }} ${{ steps.fmt1.outputs.test }}
+    value: ${{ steps.fmt.outputs.test }}
   tf_init:
     description: "Status of terraform init"
-    value: ${{ steps.init.outcome }}
+    value: ${{ steps.init.outputs.test }}
 
 runs:
   using: "composite"
@@ -35,17 +35,19 @@ runs:
       shell: bash
 
     - name: Terraform Format
-      id: fmt1
-      run: if terraform fmt -check; then echo "::set-output name=test::success"; else echo "::set-output name=test::success"; fi
+      id: fmt
+      run: if terraform fmt -check; then echo "::set-output name=test::success"; else echo "::set-output name=test::fail"; fi
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: Terraform Init
       id: init
-      run: terraform init -input=false
+      run: if terraform init -input=false; then echo "::set-output name=test::success"; else echo "::set-output name=test::fail"; fi
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: Terraform Validate
       id: validate
-      run: terraform validate -no-color
+      run: |
+        terraform validate -no-color
+        terraform version
       shell: bash
       working-directory: ${{ inputs.working-directory }}
