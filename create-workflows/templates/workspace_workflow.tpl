@@ -45,7 +45,7 @@ jobs:
           github-token: $${{ secrets.GITHUB_TOKEN }}
           script: |
             const output = `#### Terraform Format and Style 🖌\`$${{ steps.foo.outputs.fmt }}\`
-            #### Terraform Initialization ⚙️\`$${{ steps.foo.outputs.tf_init }}\`
+            #### Terraform Initialization ⚙️\`$${{ steps.foo.outputs.init }}\`
             #### Terraform Validation 🤖\`$${{ steps.foo.outputs.validate }}\`
             #### Terraform Plan 📖\`$${{ steps.plan.outcome }}\`
 
