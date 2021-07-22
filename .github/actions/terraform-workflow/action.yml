@@ -5,7 +5,7 @@ inputs:
     description: 'Working directory for this action'
     required: false
     default: '.'
-  who-to-greet:  # ID of input
+  fmt:  # ID of input
     description: 'Who to greet'
     required: false
     default: 'World'
@@ -13,6 +13,10 @@ outputs:
   random-number:
     description: "Random number"
     value: ${{ steps.random-number-generator.outputs.random-id }}
+  fmt:
+    description: "Status of terraform format"
+    value: ${{ steps.fmt.outcome }}
+
 runs:
   using: "composite"
   steps:
