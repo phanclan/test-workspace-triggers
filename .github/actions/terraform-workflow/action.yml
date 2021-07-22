@@ -15,7 +15,7 @@ outputs:
     value: ${{ steps.random-number-generator.outputs.random-id }}
   fmt:
     description: "Status of terraform format"
-    value: ${{ steps.fmt.outcome }}
+    value: ${{ steps.random-number-generator.outputs.random-id }} #${{ steps.fmt.outcome }}
 
 runs:
   using: "composite"
